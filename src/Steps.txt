@@ -1,0 +1,4 @@
+1. Tìm hiểu các bảng, quan hệ giữa các bảng, ý nghĩa của các cột
+2. Làm sạch dữ liệu
+4. Đặt các câu hỏi => Lọc dữ liệu cho cầu hỏi.
+5. Trực quan hóa dữ liệu từ các files để trả lời các câu hỏi
