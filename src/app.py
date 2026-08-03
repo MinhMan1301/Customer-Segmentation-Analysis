@@ -1,5 +1,6 @@
-from model.attitude_analysis import AttitudeAnalysis
+from model.AttitudeAnalysis import AttitudeAnalysis
 
-analyzer = AttitudeAnalysis()
-result_df = analyzer.run_analysis()
-print(result_df)
+if __name__ == "__main__":
+    analyzer = AttitudeAnalysis()
+    analyzer.print_summary()
+    analyzer.generate_charts()
