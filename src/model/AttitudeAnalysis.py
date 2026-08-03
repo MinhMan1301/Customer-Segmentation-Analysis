@@ -13,12 +13,14 @@ class AttitudeAnalysis:
         self.loader = DataLoader(data_dir)
         self.chart_dir = chart_dir
         self.master_df = None
+        self.raw_tables = None
         self.eda = None
         self.segmentation = None
         self.visualizer = None
 
     def run(self):
         raw = self.loader.load_all()
+        self.raw_tables = raw
 
         cleaned = {
             "transactions": TableCleaner.clean_transactions(raw["transactions"]),
@@ -75,11 +77,12 @@ class AttitudeAnalysis:
         print(self.segmentation.segment_profile())
 
     def generate_charts(self):
-        """Draw and save all charts into chart_dir. Call after run()."""
         if self.master_df is None:
             self.run()
         self.visualizer = Visualizer(
-            self.master_df, self.segmentation.rfm_, output_dir=self.chart_dir
+            self.master_df, self.segmentation.rfm_,
+            output_dir=self.chart_dir,
+            raw_tables=self.raw_tables,
         )
         paths = self.visualizer.generate_all(self.eda)
         print(f"Saved {len(paths)} charts to: {self.chart_dir}/")

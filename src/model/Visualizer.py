@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -7,11 +8,10 @@ sns.set_theme(style="whitegrid")
 
 
 class Visualizer:
-    """Draws charts for the report/slides and saves them as .png files in output_dir."""
-
-    def __init__(self, master_df, rfm_df=None, output_dir="charts"):
+    def __init__(self, master_df, rfm_df=None, output_dir="charts", raw_tables=None):
         self.df = master_df
         self.rfm_df = rfm_df
+        self.raw_tables = raw_tables
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -30,6 +30,22 @@ class Visualizer:
         ax.set_xlabel("Missing ratio")
         ax.set_title("Missing value ratio by column (after cleaning)")
         return self._save(fig, "missing_values")
+
+    def plot_missing_values_before(self):
+        if not self.raw_tables:
+            raise ValueError(
+                "raw_tables not provided. Pass raw_tables=... to Visualizer "
+                "to plot before-cleaning missing values."
+            )
+        na = pd.concat({name: df.isna().mean() for name, df in self.raw_tables.items()})
+        na = na[na > 0].sort_values(ascending=False)
+        fig, ax = plt.subplots(figsize=(8, 5))
+        if len(na) > 0:
+            labels = [f"{table}.{col}" for table, col in na.index]
+            sns.barplot(x=na.values, y=labels, ax=ax, color="#DD8452")
+        ax.set_xlabel("Missing ratio")
+        ax.set_title("Missing value ratio by column (before cleaning)")
+        return self._save(fig, "missing_values_before")
 
     def plot_amount_distribution(self):
         fig, ax = plt.subplots(figsize=(8, 5))
@@ -91,8 +107,11 @@ class Visualizer:
         return self._save(fig, "segment_monetary")
 
     def generate_all(self, eda):
-        paths = [
-            self.plot_missing_values(),
+        paths = []
+        if self.raw_tables:
+            paths.append(self.plot_missing_values_before())
+        paths.append(self.plot_missing_values())
+        paths += [
             self.plot_amount_distribution(),
             self.plot_spending_by_channel(),
             self.plot_spending_by_card_type(),

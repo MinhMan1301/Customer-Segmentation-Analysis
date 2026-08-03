@@ -2,22 +2,12 @@ import pandas as pd
 
 
 class CustomerSegmentation:
-    """
-    Segments customers using RFM Scoring (no ML involved):
-      - Recency:   days since the most recent transaction (lower is better)
-      - Frequency: number of transactions (higher is better)
-      - Monetary:  total spend (higher is better)
-
-    Each metric is split into 4 quantile groups (pd.qcut), scored 1-4.
-    The sum of the 3 scores (R+F+M, range 3-12) is mapped to a segment label.
-    """
-
     SEGMENT_MAP_THRESHOLDS = [
-        (10, "Champions"),           # RFM score >= 10
-        (8, "Loyal Customers"),      # 8-9
-        (6, "Potential Loyalists"),  # 6-7
-        (4, "At Risk"),              # 4-5
-        (0, "Lost"),                 # < 4
+        (10, "Champions"),
+        (8, "Loyal Customers"),
+        (6, "Potential Loyalists"),
+        (4, "At Risk"),
+        (0, "Lost"),
     ]
 
     def __init__(self, master_df):
@@ -34,7 +24,6 @@ class CustomerSegmentation:
             avg_transaction=("amount", "mean"),
         )
 
-        # add demographic/financial attributes for richer segment profiling
         demo_cols = ["current_age", "yearly_income", "credit_score", "total_debt"]
         demo = self.df.groupby("client_id")[demo_cols].first()
         rfm = rfm.join(demo).dropna()
@@ -44,14 +33,9 @@ class CustomerSegmentation:
 
     @staticmethod
     def _score_quantile(series, ascending):
-        """Split series into 4 quantile groups, return a score of 1-4.
-        ascending=True: smaller value -> higher score (used for Recency)
-        ascending=False: larger value -> higher score (used for Frequency, Monetary)
-        """
         try:
             scores = pd.qcut(series, 4, labels=False, duplicates="drop") + 1
         except ValueError:
-            # not enough distinct values to split into 4 groups -> assign a neutral score
             return pd.Series(2, index=series.index)
 
         if ascending:

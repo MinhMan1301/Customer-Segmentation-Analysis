@@ -7,7 +7,6 @@ class DataLoader:
 
     def __init__(self, data_dir=None):
         if data_dir is None:
-            # __file__ lives in model/, data lives in data/ (sibling of model/)
             data_dir = Path(__file__).resolve().parent.parent / "data"
         self.data_dir = Path(data_dir)
 

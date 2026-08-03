@@ -5,16 +5,13 @@ class EDA:
         self.df = master_df
 
     def missing_value_report(self):
-        """Check the missing-value ratio for each column."""
         na = self.df.isna().mean().sort_values(ascending=False)
         return na[na > 0].rename("pct_missing").to_frame()
 
     def spending_overview(self):
-        """How much customers spend per transaction."""
         return self.df["amount"].describe()
 
     def spending_by_channel(self):
-        """Which transaction channel customers prefer (Chip/Swipe/Online)."""
         return (
             self.df.groupby("use_chip")["amount"]
             .agg(["count", "mean", "sum"])
@@ -22,7 +19,6 @@ class EDA:
         )
 
     def spending_by_card_type(self):
-        """Whether customers prefer paying upfront (Debit/Prepaid) or later (Credit)."""
         return (
             self.df.groupby("card_type")["amount"]
             .agg(["count", "mean", "sum"])
@@ -30,7 +26,6 @@ class EDA:
         )
 
     def yearly_trend(self):
-        """How spending trends changed year over year (2010-2019)."""
         tmp = self.df.copy()
         tmp["year"] = tmp["date"].dt.year
         return (
