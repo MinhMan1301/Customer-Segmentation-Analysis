@@ -69,9 +69,11 @@ class Visualizer:
         return self._save(fig, "spending_by_card_type")
 
     def plot_yearly_trend(self, eda_yearly_df):
+        data = eda_yearly_df[eda_yearly_df["year"] <= 2018]
+
         fig, ax = plt.subplots(figsize=(9, 5))
-        sns.lineplot(data=eda_yearly_df, x="year", y="total_amount", marker="o", ax=ax)
-        ax.set_title("Total transaction amount trend by year (2010-2019)")
+        sns.lineplot(data=data, x="year", y="total_amount", marker="o", ax=ax)
+        ax.set_title("Total transaction amount trend by year (2010-2018)")
         ax.set_xlabel("Year")
         ax.set_ylabel("Total amount ($)")
         return self._save(fig, "yearly_trend")
