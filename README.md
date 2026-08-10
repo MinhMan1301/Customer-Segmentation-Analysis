@@ -132,7 +132,7 @@ pip install streamlit pandas matplotlib seaborn
 streamlit run app.py
 ```
 
-1. Download the dataset from **[Kaggle / source link here]**.
+1. Download the dataset by contacting me.
 2. Place all 5 CSVs (`transactions_data_25pc.csv`, `cards_data.csv`, `users_data.csv`, `mcc_codes.csv`, `train_fraud_labels.csv`) into a `data/` directory one level above the `model/` package — or pass a custom path via `AttitudeAnalysis(data_dir=...)`.
 3. Run `streamlit run app.py`.
 
