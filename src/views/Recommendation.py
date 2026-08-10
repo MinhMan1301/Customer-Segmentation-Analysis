@@ -23,7 +23,4 @@ with st.container(width=1200, height=400):
 
 - Transaction value grew steadily until around 2015, then plateaued → focus on acquiring new customers and expanding products.
 
-**Data Quality**
-
-- `transactions.errors` has ~98% missing data and `zip/merchant_state` ~12% → improve data collection, especially transaction error logs, for better fraud analysis.
 """)
