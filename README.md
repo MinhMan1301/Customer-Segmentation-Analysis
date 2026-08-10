@@ -37,7 +37,7 @@ Company X provides financial products and services to individual customers and h
 
 | Category | Tools | Description |
 |---|---|---|
-| **Data Processing** | Python, Pandas | Cleaning, merging, and feature engineering |
+| **Data Processing** | Python, Pandas, NumPy | Cleaning, merging, and numerical feature engineering |
 | **Analysis** | Custom `EDA` & `CustomerSegmentation` classes | Spending analysis & RFM scoring |
 | **Visualization** | Matplotlib, Seaborn | Static charts rendered into the dashboard |
 | **App / UI** | Streamlit | Multi-page interactive dashboard |
@@ -78,7 +78,7 @@ The dataset is a comprehensive financial dataset covering customer transactions,
 | **Fraud Labels Data** | Whether a transaction was flagged as fraudulent |
 | **User Data** | Age, income, debt, credit score, and other demographics |
 
-> ⚠️ **Note:** `transactions_data_25pc.csv` and `train_fraud_labels.csv` are too large to be tracked in this repository (see `.gitignore`). Download the full dataset from **[Kaggle / source link here]** and place all 5 CSVs into a local `data/` folder before running the app.
+> ⚠️ **Note:** `transactions_data_25pc.csv` and `train_fraud_labels.csv` are too large to be tracked in this repository (see `.gitignore`). Download the full dataset by contacting me and place all 5 CSVs into a local `data/` folder before running the app or you can see the demo to know more about the app.
 
 ---
 
@@ -125,10 +125,20 @@ Each metric is scored 1–4 using quantiles, summed into an `RFM_score`, and map
 
 ---
 
+## 🛠️ Tools Used
+
+- **[Streamlit](https://streamlit.io/)** — multi-page interactive dashboard (Dashboard, Analytics, Recommendation)
+- **[Pandas](https://pandas.pydata.org/)** — data loading, cleaning, merging, and aggregation
+- **[NumPy](https://numpy.org/)** — underlying numerical operations for Pandas computations
+- **[Matplotlib](https://matplotlib.org/)** — chart rendering engine
+- **[Seaborn](https://seaborn.pydata.org/)** — statistical visualizations (histograms, boxplots, bar/count plots)
+
+---
+
 ## ▶️ How to Run
 
 ```bash
-pip install streamlit pandas matplotlib seaborn
+pip install streamlit pandas numpy matplotlib seaborn
 streamlit run app.py
 ```
 
@@ -148,5 +158,5 @@ _Coming soon._
 
 **Author:** _[MinhMan1301]_
 📧 Email: [phamminhman13012005@gmail.com](mailto:phamminhman13012005@gmail.com)
-🔗 GitHub: [MinhMan1301]([https://github.com/your-username](https://github.com/MinhMan1301))
-🔗 LinkedIn: [NGUYEN MINH MAN PHAM]([https://www.linkedin.com/in/your-profile/](https://www.linkedin.com/in/nguyen-minh-man-pham-47b493311/))
+🔗 GitHub: [MinhMan1301](https://github.com/MinhMan1301)
+🔗 LinkedIn: [NGUYEN MINH MAN PHAM](https://www.linkedin.com/in/nguyen-minh-man-pham-47b493311/)
