@@ -150,7 +150,8 @@ streamlit run app.py
 
 ## 🎥 Video Demo
 
-_Coming soon._
+[**Video Demo: Blood System Management Website**]([anaalysis.webm](https://github.com/user-attachments/assets/04c682ac-4416-4122-960d-723fa28fb642)
+)
 
 ---
 
