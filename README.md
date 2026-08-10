@@ -146,7 +146,7 @@ _Coming soon._
 
 ## 📬 Contact
 
-**Author:** _[Your Name]_
-📧 Email: [your.email@example.com](mailto:your.email@example.com)
-🔗 GitHub: [your-username](https://github.com/your-username)
-🔗 LinkedIn: [Your Name](https://www.linkedin.com/in/your-profile/)
+**Author:** _[MinhMan1301]_
+📧 Email: [phamminhman13012005@gmail.com](mailto:phamminhman13012005@gmail.com)
+🔗 GitHub: [MinhMan1301]([https://github.com/your-username](https://github.com/MinhMan1301))
+🔗 LinkedIn: [NGUYEN MINH MAN PHAM]([https://www.linkedin.com/in/your-profile/](https://www.linkedin.com/in/nguyen-minh-man-pham-47b493311/))
