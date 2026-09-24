@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 sns.set_theme(style="whitegrid")
+KDE_SAMPLE_SIZE = 200_000
 
 
 class Visualizer:
@@ -49,7 +50,12 @@ class Visualizer:
 
     def plot_amount_distribution(self):
         fig, ax = plt.subplots(figsize=(8, 5))
-        sns.histplot(self.df["amount"], bins=50, kde=True, ax=ax, color="#4C72B0")
+        amounts = self.df["amount"].dropna()
+        # The histogram uses every row; the KDE curve is fitted on a fixed random sample because
+        # scipy's gaussian_kde costs rows x grid points and dominated chart time on the full dataset.
+        kde_sample = amounts.sample(n=min(len(amounts), KDE_SAMPLE_SIZE), random_state=42)
+        sns.histplot(amounts, bins=50, stat="density", ax=ax, color="#4C72B0")
+        sns.kdeplot(kde_sample, ax=ax, color="#1F3B73")
         ax.set_title("Transaction amount distribution")
         ax.set_xlabel("Amount ($)")
         return self._save(fig, "amount_distribution")

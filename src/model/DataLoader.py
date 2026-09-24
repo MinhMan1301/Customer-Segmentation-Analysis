@@ -36,7 +36,7 @@ class DataLoader:
                 f"File '{filename}' not found at '{path}'. "
                 f"Check the path, set {DATA_DIR_ENV}, or pass a data_dir when creating DataLoader."
             )
-        return pd.read_csv(path)
+        return pd.read_csv(path, engine="pyarrow")
 
     def missing_files(self):
         """Return the expected file names that are not present in data_dir."""
