@@ -24,7 +24,7 @@ pipeline {
     parameters {
         booleanParam(name: 'RELEASE_TO_PRODUCTION', defaultValue: true,
                      description: 'Promote the verified build to production and publish a GitHub Release (main branch only).')
-        booleanParam(name: 'SIMULATE_INCIDENT', defaultValue: false,
+        booleanParam(name: 'SIMULATE_INCIDENT', defaultValue: true,
                      description: 'After release, stop production to prove that the CSAppDown alert fires and resolves.')
     }
 
