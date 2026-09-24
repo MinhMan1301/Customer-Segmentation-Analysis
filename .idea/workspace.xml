@@ -5,25 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e96685b-4a5b-4298-8700-f06898c9816b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/requirements.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Module1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Module1.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project1.pptx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/src.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/src.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Project 1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/AttitudeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/AttitudeAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/CustomerSegmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/CustomerSegmentation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/DataLoader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DataLoader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/EDA.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/EDA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Merger.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Merger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/TableCleaner.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/TableCleaner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Visualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Visualizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Analytics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Analytics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Dashboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Recommendation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Recommendation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
