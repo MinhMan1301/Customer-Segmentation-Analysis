@@ -65,6 +65,8 @@ def test_metrics_server_starts_once(monkeypatch):
     calls = []
     monkeypatch.setenv("METRICS_ENABLED", "true")
     monkeypatch.setenv("APP_VERSION", "9.9.9")
+    for var in ("GIT_SHA", "APP_ENV", "METRICS_PORT", "METRICS_ADDR"):
+        monkeypatch.delenv(var, raising=False)   # CI sets these; the test needs a clean environment
     monkeypatch.setattr(telemetry, "_server_started", False)
     monkeypatch.setattr(telemetry, "start_http_server", lambda port, addr: calls.append((port, addr)))
     assert telemetry.start_metrics_server() is True
