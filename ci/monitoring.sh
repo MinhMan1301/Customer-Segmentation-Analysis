@@ -7,6 +7,7 @@ mkdir -p "$MON_DIR"
 PROM="http://cs-prometheus:9090"
 AM="http://cs-alertmanager:9093"
 GRAFANA="http://cs-grafana:3000"
+PROD_APP="cs-production-app"
 
 prom_query() {  # prints the JSON result of an instant query
   curl -fsS --get --data-urlencode "query=$1" "$PROM/api/v1/query"
@@ -80,9 +81,9 @@ do_verify() {
 }
 
 do_incident() {
-  local app="cs-production-app" start detected resolved waited mttd
+  local app="$PROD_APP"
   docker inspect "$app" >/dev/null 2>&1 || die "production is not running - nothing to test"
-  trap 'docker start "$app" >/dev/null 2>&1 || true' EXIT
+  trap 'docker start "$PROD_APP" >/dev/null 2>&1 || true' EXIT
 
   log "INCIDENT SIMULATION: stopping $app"
   docker stop "$app" >/dev/null
@@ -100,6 +101,7 @@ do_incident() {
   log "Recovering: starting $app again"
   docker start "$app" >/dev/null
   wait_for_http "http://$app:8501/_stcore/health" 120
+  trap - EXIT
 
   waited=0
   until [[ "$(prom_query 'ALERTS{alertname="CSAppDown",env="production",alertstate="firing"}' \
