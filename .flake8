@@ -1,0 +1,7 @@
+[flake8]
+max-line-length = 120
+max-complexity = 10
+exclude = .git,__pycache__,.venv,venv,reports,dist,build,.idea
+per-file-ignores =
+    # long markdown paragraphs shown to the business user
+    src/views/Recommendation.py: E501

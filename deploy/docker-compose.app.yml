@@ -1,0 +1,41 @@
+# One compose file for every environment; differences live in staging.env / production.env
+# (environment-specific configuration, infrastructure as code).
+# Used by ci/deploy.sh:  APP_IMAGE=... docker compose -p cs-<env> --env-file deploy/<env>.env -f deploy/docker-compose.app.yml up -d --wait
+services:
+  app:
+    image: ${APP_IMAGE:?APP_IMAGE must be set by ci/deploy.sh}
+    container_name: cs-${APP_ENV:?}-app
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV}
+      DATA_DIR: ${DATA_DIR}
+      METRICS_ENABLED: "true"
+    ports:
+      - "127.0.0.1:${APP_PORT}:8501"   # metrics port 8000 stays internal (Prometheus uses devops-net)
+    volumes:
+      - datasets:/data:ro              # full dataset, filled by ci/fetch_dataset.sh (production only)
+    mem_limit: ${MEM_LIMIT}
+    cpus: ${CPUS}
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      com.deakin.sit223.env: ${APP_ENV}
+    networks:
+      - devops-net
+
+networks:
+  devops-net:
+    external: true
+    name: devops-net
+
+volumes:
+  datasets:
+    external: true
+    name: cs-datasets

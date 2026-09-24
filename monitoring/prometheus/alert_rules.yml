@@ -1,0 +1,68 @@
+groups:
+  - name: cs-app-availability
+    rules:
+      - alert: CSAppDown
+        expr: probe_success{job="cs-app-health"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Customer Segmentation app is DOWN ({{ $labels.env }})"
+          description: "The health endpoint {{ $labels.instance }} has failed for more than 30 seconds."
+          runbook: "docker logs cs-{{ $labels.env }}-app; roll back with: bash ci/deploy.sh rollback {{ $labels.env }}"
+
+      - alert: CSMetricsTargetDown
+        expr: up{job="cs-app"} == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prometheus cannot scrape app metrics ({{ $labels.env }})"
+          description: "{{ $labels.instance }} /metrics has been unreachable for 1 minute."
+
+      - alert: CSSlowHealthCheck
+        expr: probe_duration_seconds{job="cs-app-health"} > 2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Health check is slow ({{ $labels.env }})"
+          description: "Health endpoint answers in {{ $value | humanizeDuration }} (> 2s) for 2 minutes."
+
+  - name: cs-app-resources
+    rules:
+      - alert: CSHighMemoryUsage
+        expr: process_resident_memory_bytes{job="cs-app"} / cs_container_memory_limit_bytes{job="cs-app"} > 0.85
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "App memory above 85% of its container limit ({{ $labels.env }})"
+          description: "Memory usage is {{ $value | humanizePercentage }} of the limit - risk of OOM kill."
+
+      - alert: CSHighCPU
+        expr: rate(process_cpu_seconds_total{job="cs-app"}[2m]) / cs_container_cpu_limit_cores{job="cs-app"} > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "App CPU above 90% of its container limit ({{ $labels.env }})"
+          description: "Sustained CPU usage of {{ $value | humanizePercentage }} of the CPU limit for 5 minutes."
+
+  - name: cs-app-data
+    rules:
+      - alert: CSDataPipelineFailed
+        expr: increase(cs_data_pipeline_runs_total{status="failure"}[10m]) > 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "Data pipeline failed ({{ $labels.env }})"
+          description: "Loading/cleaning/segmenting the dataset raised an error - dashboards show no data."
+
+      - alert: CSPageErrors
+        expr: sum by (env, page) (increase(cs_page_errors_total{job="cs-app"}[5m])) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: "Dashboard page '{{ $labels.page }}' is raising errors ({{ $labels.env }})"
+          description: "{{ $value }} failed render(s) of the page in the last 5 minutes."

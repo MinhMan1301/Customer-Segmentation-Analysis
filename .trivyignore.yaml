@@ -1,0 +1,9 @@
+# Trivy accepted-risk register (used only by the CRITICAL gate in ci/security.sh).
+# Each entry needs a statement and an expiry date so it is re-reviewed.
+# See SECURITY.md -> "Findings register".
+vulnerabilities: []
+#  - id: CVE-2026-00000
+#    statement: "Affects libfoo's CLI only, not used by the app. Re-check when the base image updates."
+#    expired_at: 2026-12-31
+misconfigurations: []
+secrets: []

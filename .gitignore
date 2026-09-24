@@ -1,2 +1,30 @@
-src/data/train_fraud_labels.csv
+# --- Python / tooling ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+reports/
+dist/
+.scannerwork/
+
+# --- IDE ---
+.idea/
+.vscode/
+
+# --- Generated charts ---
+charts/
+src/charts/
+
+# --- Data: the two large files are published as GitHub Release assets (dataset-v1) ---
 src/data/transactions_data_25pc.csv
+src/data/train_fraud_labels.csv
+src/data/*.gz
+# keep: src/data/{cards,users,mcc}.csv, src/data/sample/, src/data/dataset.sha256
+
+# --- Secrets ---
+.env
+*.pem

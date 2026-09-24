@@ -1,0 +1,60 @@
+# Unit tests for the alert rules (run by ci/monitoring.sh verify with promtool).
+rule_files: [alert_rules.yml]
+evaluation_interval: 15s
+tests:
+  - interval: 10s
+    input_series:
+      - series: 'probe_success{job="cs-app-health",env="production",instance="x"}'
+        values: '1 1 0 0 0 0 0 0'
+      - series: 'process_resident_memory_bytes{job="cs-app",env="production",instance="y"}'
+        values: '900+0x20'
+      - series: 'cs_container_memory_limit_bytes{job="cs-app",env="production",instance="y"}'
+        values: '1000+0x20'
+      - series: 'cs_data_pipeline_runs_total{job="cs-app",env="production",instance="y",status="failure"}'
+        values: '0 0 1 1 1'
+      - series: 'process_cpu_seconds_total{job="cs-app",env="staging",instance="z"}'
+        values: '0+9.5x60'
+      - series: 'cs_container_cpu_limit_cores{job="cs-app",env="staging",instance="z"}'
+        values: '1+0x60'
+      - series: 'cs_page_errors_total{job="cs-app",env="production",instance="y",page="Analytics"}'
+        values: '0 0 1 1'
+    alert_rule_test:
+      - eval_time: 70s
+        alertname: CSAppDown
+        exp_alerts:
+          - exp_labels: {severity: critical, job: cs-app-health, env: production, instance: x}
+            exp_annotations:
+              summary: "Customer Segmentation app is DOWN (production)"
+              description: "The health endpoint x has failed for more than 30 seconds."
+              runbook: "docker logs cs-production-app; roll back with: bash ci/deploy.sh rollback production"
+      - eval_time: 150s
+        alertname: CSHighMemoryUsage
+        exp_alerts:
+          - exp_labels: {severity: warning, job: cs-app, env: production, instance: y}
+            exp_annotations:
+              summary: "App memory above 85% of its container limit (production)"
+              description: "Memory usage is 90% of the limit - risk of OOM kill."
+      - eval_time: 30s
+        alertname: CSDataPipelineFailed
+        exp_alerts:
+          - exp_labels: {severity: critical, job: cs-app, env: production, instance: y, status: failure}
+            exp_annotations:
+              summary: "Data pipeline failed (production)"
+              description: "Loading/cleaning/segmenting the dataset raised an error - dashboards show no data."
+      - eval_time: 7m
+        alertname: CSHighCPU
+        exp_alerts:
+          - exp_labels: {severity: warning, job: cs-app, env: staging, instance: z}
+            exp_annotations:
+              summary: "App CPU above 90% of its container limit (staging)"
+              description: "Sustained CPU usage of 95% of the CPU limit for 5 minutes."
+      - eval_time: 40s
+        alertname: CSPageErrors
+        exp_alerts:
+          - exp_labels: {severity: warning, env: production, page: Analytics}
+            exp_annotations:
+              summary: "Dashboard page 'Analytics' is raising errors (production)"
+              description: "1 failed render(s) of the page in the last 5 minutes."
+      - eval_time: 20s
+        alertname: CSAppDown
+        exp_alerts: []

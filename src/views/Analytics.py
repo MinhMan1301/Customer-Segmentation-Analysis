@@ -7,9 +7,11 @@ analyzer = st.session_state.analyzer
 
 CHART_DIR = Path(analyzer.chart_dir)
 
+
 @st.cache_resource(show_spinner="Loading charts...")
 def get_chart_paths(_analyzer):
     return _analyzer.generate_charts()
+
 
 paths = get_chart_paths(analyzer)
 

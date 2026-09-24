@@ -1,0 +1,60 @@
+# DevOps platform: Jenkins (CI/CD), SonarQube (code quality), local Docker registry (artefacts).
+# Start once with:  docker compose -f infra/docker-compose.yml up -d --build
+name: cs-devops-platform
+
+services:
+  jenkins:
+    build: ./jenkins
+    image: cs-jenkins:local
+    container_name: jenkins
+    # Root is needed to use the host Docker socket on Docker Desktop (see SECURITY.md - accepted risk).
+    user: root
+    restart: unless-stopped
+    environment:
+      TZ: Australia/Melbourne
+      JAVA_OPTS: -Xmx2g
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:50000:50000"
+    volumes:
+      - jenkins-home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - datasets:/datasets
+    networks: [devops-net]
+
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    restart: unless-stopped
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - sonarqube-data:/opt/sonarqube/data
+      - sonarqube-extensions:/opt/sonarqube/extensions
+      - sonarqube-logs:/opt/sonarqube/logs
+    networks: [devops-net]
+
+  registry:
+    image: registry:3
+    container_name: cs-registry
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - registry-data:/var/lib/registry
+    networks: [devops-net]
+
+networks:
+  devops-net:
+    name: devops-net
+
+volumes:
+  jenkins-home:
+  sonarqube-data:
+  sonarqube-extensions:
+  sonarqube-logs:
+  registry-data:
+  datasets:
+    name: cs-datasets

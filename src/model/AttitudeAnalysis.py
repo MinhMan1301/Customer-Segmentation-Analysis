@@ -1,3 +1,5 @@
+import os
+
 from .DataLoader import DataLoader
 from .TableCleaner import TableCleaner
 from .Merger import Merger
@@ -9,9 +11,10 @@ from .Visualizer import Visualizer
 class AttitudeAnalysis:
     """Main entry point: load -> clean -> merge -> EDA -> segmentation -> visualize."""
 
-    def __init__(self, data_dir=None, chart_dir="charts"):
+    def __init__(self, data_dir=None, chart_dir=None):
         self.loader = DataLoader(data_dir)
-        self.chart_dir = chart_dir
+        # CHART_DIR lets the container write charts to a known, writable folder.
+        self.chart_dir = chart_dir or os.environ.get("CHART_DIR", "charts")
         self.master_df = None
         self.raw_tables = None
         self.eda = None

@@ -2,7 +2,7 @@ import streamlit as st
 
 st.title("💡 Introduction")
 
-analyzer = st.session_state.analyzer   # dùng lại, không gọi run() nữa
+analyzer = st.session_state.analyzer   # reuse the cached analyzer, do not call run() again
 
 st.subheader("1. Missing Value Report")
 st.dataframe(analyzer.eda.missing_value_report())

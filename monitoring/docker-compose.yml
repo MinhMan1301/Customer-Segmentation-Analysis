@@ -1,0 +1,75 @@
+# Monitoring & alerting stack, started/updated by the Jenkins "Monitoring" stage (ci/monitoring.sh up).
+# Configuration is baked into small custom images instead of bind mounts, because Jenkins
+# talks to the host Docker daemon and host paths != paths inside the Jenkins container.
+name: cs-monitoring
+
+services:
+  prometheus:
+    build: ./prometheus
+    image: cs-prometheus:local
+    container_name: cs-prometheus
+    restart: unless-stopped
+    ports: ["127.0.0.1:9090:9090"]
+    volumes: ["prometheus-data:/prometheus"]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9090/-/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [devops-net]
+
+  alertmanager:
+    build: ./alertmanager
+    image: cs-alertmanager:local
+    container_name: cs-alertmanager
+    restart: unless-stopped
+    environment:
+      SMTP_USER: ${SMTP_USER:?}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:?}
+      ALERT_EMAIL_TO: ${ALERT_EMAIL_TO:?}
+    ports: ["127.0.0.1:9093:9093"]
+    volumes: ["alertmanager-data:/alertmanager"]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9093/-/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [devops-net]
+
+  blackbox:
+    image: prom/blackbox-exporter:v0.28.0
+    container_name: cs-blackbox
+    restart: unless-stopped
+    ports: ["127.0.0.1:9115:9115"]
+    networks: [devops-net]
+
+  grafana:
+    build: ./grafana
+    image: cs-grafana:local
+    container_name: cs-grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:?}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:?}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/dashboards/cs-app.json
+    ports: ["127.0.0.1:3000:3000"]
+    volumes: ["grafana-data:/var/lib/grafana"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:3000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    depends_on: [prometheus]
+    networks: [devops-net]
+
+networks:
+  devops-net:
+    external: true
+    name: devops-net
+
+volumes:
+  prometheus-data:
+  alertmanager-data:
+  grafana-data:

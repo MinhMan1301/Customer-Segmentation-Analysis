@@ -1,0 +1,28 @@
+# Only src/ is copied into the image; keep the build context small and secret-free.
+.git
+.github
+.idea
+.venv
+venv
+**/__pycache__
+**/*.pyc
+reports
+dist
+tests
+ci
+deploy
+monitoring
+infra
+docs
+scripts
+Jenkinsfile
+*.md
+src/charts
+src/Steps.txt
+src/*.pdf
+src/.idea
+# Full datasets never go into the image; the committed sample does.
+src/data/*.csv
+src/data/*.gz
+src/data/*.sha256
+!src/data/sample/

@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e96685b-4a5b-4298-8700-f06898c9816b" name="Changes" comment="" />
+    <list default="true" id="6e96685b-4a5b-4298-8700-f06898c9816b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/requirements.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Module1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Module1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project1.pptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/src.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/src.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Project 1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/AttitudeAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/AttitudeAnalysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/CustomerSegmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/CustomerSegmentation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/DataLoader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DataLoader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/EDA.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/EDA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Merger.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Merger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/TableCleaner.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/TableCleaner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Visualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Visualizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Analytics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Analytics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Dashboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Recommendation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Recommendation.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,10 +33,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3Ha7EvCzw14g2Vkzm0SuwrF3isL" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -21,13 +44,21 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Workspace/01_Study/COLE/Module1"
+    "last_opened_file_path": "C:/Users/Legion/OneDrive/Desktop/HD Jenkins/Customer-Segmentation-Analysis",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -46,5 +77,8 @@
       <updated>1786094220331</updated>
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

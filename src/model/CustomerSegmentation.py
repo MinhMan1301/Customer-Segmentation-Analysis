@@ -37,6 +37,9 @@ class CustomerSegmentation:
             scores = pd.qcut(series, 4, labels=False, duplicates="drop") + 1
         except ValueError:
             return pd.Series(2, index=series.index)
+        if scores.isna().all():
+            # All values identical (e.g. a tiny dataset): qcut cannot rank them.
+            return pd.Series(2, index=series.index)
 
         if ascending:
             max_score = scores.max()

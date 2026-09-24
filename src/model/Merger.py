@@ -14,6 +14,6 @@ class Merger:
         master = master.merge(users, on="client_id", how="left", suffixes=("", "_user"))
         master = master.merge(mcc, on="mcc", how="left")
         master = master.merge(fraud[["id", "is_fraud"]], on="id", how="left")
-        master["is_fraud"] = master["is_fraud"].fillna(False)
+        master["is_fraud"] = master["is_fraud"].fillna(False).astype(bool)
 
         return master

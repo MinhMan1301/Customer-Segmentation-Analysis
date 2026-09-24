@@ -1,0 +1,4 @@
+# Vulnerability IDs accepted after review (one per line: ID  justification).
+# Every entry must also be documented in SECURITY.md with an expiry date.
+# Example:
+# GHSA-xxxx-xxxx-xxxx  not reachable: affected function is never called

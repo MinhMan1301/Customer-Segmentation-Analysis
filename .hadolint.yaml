@@ -1,0 +1,8 @@
+# Dockerfile policy enforced in the Code Quality stage (ci/quality.sh).
+failure-threshold: error
+ignored:
+  - DL3008   # apt versions are not pinned: Debian security updates are taken on every rebuild
+trustedRegistries:   # DL3026: base images may only come from these registries
+  - docker.io
+  - ghcr.io
+  - quay.io
