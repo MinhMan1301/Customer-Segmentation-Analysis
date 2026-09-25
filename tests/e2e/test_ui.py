@@ -5,6 +5,9 @@ import re
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 pytestmark = pytest.mark.e2e
 
@@ -16,6 +19,24 @@ def wait_for_text(driver, timeout, *texts):
     WebDriverWait(driver, timeout, poll_frequency=1).until(
         lambda d: all(text in d.find_element(By.TAG_NAME, "body").text for text in texts)
     )
+
+
+def wait_for_min_elements(driver, timeout, css, min_count):
+    """Wait until at least `min_count` elements match `css`; report the last count on failure."""
+    found = []
+
+    def enough(d):
+        found[:] = d.find_elements(By.CSS_SELECTOR, css)
+        return len(found) >= min_count
+
+    try:
+        WebDriverWait(driver, timeout).until(enough)
+    except TimeoutException:
+        raise AssertionError(
+            f"Expected >= {min_count} elements matching {css!r} "
+            f"within {timeout}s, but found {len(found)}"
+        )
+    return found
 
 
 def assert_no_streamlit_error(driver):
